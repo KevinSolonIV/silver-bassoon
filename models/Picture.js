@@ -1,9 +1,17 @@
 const mongoose = require("mongoose");
 
-const CommentSchema = new mongoose.Schema({
-  comment: {
+const PictureSchema = new mongoose.Schema({
+  image: {
     type: String,
-    required: true,
+    require: true,
+  },
+  cloudinaryId: {
+    type: String,
+    require: true,
+  },
+  caption: {
+    type: String,
+    default: '',
   },
   likes: {
     type: Number,
@@ -20,7 +28,7 @@ const CommentSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
-module.exports = mongoose.model("Comment", CommentSchema);
+module.exports = mongoose.model("Picture", PictureSchema);
