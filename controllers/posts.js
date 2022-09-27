@@ -1,6 +1,7 @@
 const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
 const Comments = require("../models/Comment");
+const Pictures = require("../models/Picture");
 
 module.exports = {
   getProfile: async (req, res) => {
@@ -23,8 +24,9 @@ module.exports = {
     try {
       const post = await Post.findById(req.params.id);
       const comments = await Comments.find({post: req.params.id});
+      const pictures = await Pictures.find({post: req.params.id});
       
-      res.render("post.ejs", { post: post, user: req.user,comments: comments });
+      res.render("post.ejs", { post: post, user: req.user, comments: comments, pictures: pictures });
     } catch (err) {
       console.log(err);
     }

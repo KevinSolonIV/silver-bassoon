@@ -1,10 +1,12 @@
 <%- include('partials/header') -%>
 <div class="container">
-  <div class="row justify-content-center mt-5">
-    <div class="col-6">
-      <h2><%= post.title %></h2>
-      <img class="img-fluid" src="<%= post.image%>" />
-      <div class="row justify-content-between">
+  <div class="card card-side bg-base-100 shadow-xl">
+    <figure><img src="<%= posts[i].image %>" alt="<%= posts[i].title %>"/></figure>
+    <div class="card-body">
+      <h2 class="card-title"><%= posts[i].title %></h2>
+      <p><%= posts[i].caption %></p>
+      <h6><%= posts[i].address %></h6>
+      <div class="card-actions justify-end">
         <form
           class="col-1"
           action="/post/likePost/<%= post.id %>?_method=PUT"
@@ -14,16 +16,53 @@
         </form>
         <h3 class="col-3">Likes: <%= post.likes %></h3>
         <%if(post.user == user.id){ %>
-        <form
-          action="/post/deletePost/<%= post.id %>?_method=DELETE"
-          method="POST"
-          class="col-3"
-        >
-          <button class="btn btn-primary fa fa-trash" type="submit"></button>
-        </form>
+          <form
+            action="/post/deletePost/<%= post.id %>?_method=DELETE"
+            method="POST"
+            class="col-3"
+          >
+            <button class="btn btn-primary fa fa-trash" type="submit"></button>
+          </form>
         <%}%>
       </div>
     </div>
+  </div>
+  <div class="post-replies">
+    <div class="btn-group grid grid-cols-2">
+      <button class="btn btn-active">Comments</button>
+      <button class="btn">Pictures</button>
+    </div>
+    <div>
+      <div class="post-reply-comments">
+        <% for(let i=0; i<comments.length; i++){%>
+        <div class="card w-96 bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title"><%= comments[i].title %></h2>
+            <p><%= comments[i].comment %></p>
+          </div>
+        </div>
+        <%}%>
+        <!-- add a comment form -->
+        <form action="/comments/addComment/<%= post.id %>" method="POST">
+          <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title" name="title">
+              <label for="comment" class="form-label">Comment</label>
+              <input type="text" class="form-control" id="comment" name="comment">
+          </div>
+          <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
+        </form>
+      </div>
+      <div class="post-reply-pictures h-96 carousel carousel-vertical rounded-box">
+        <% for(let i=0; i<pictures.length; i++){%>
+        <div class="carousel-item h-full">
+          <img src="<%= pictures[i].image %>" />
+        </div>
+        <%}%>
+      </div>
+    </div>
+  </div>
+  
     <div class="col-3 mt-5">
       <p><%= post.caption %></p>
     </div>
@@ -37,16 +76,6 @@
         <p><%= comment[i].comment %></p>
       </div>
     <%}%>
-    <!-- add a comment form -->
-    <form action="/comments/addComment/<%= post.id %>" method="POST">
-      <div class="mb-3">
-          <label for="comment" class="form-label">Comment</label>
-          <input type="text" class="form-control" id="comment" name="comment">
-      </div>
-      <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
-    </form>
-
-  </div>
 </div>
 
 <%- include('partials/footer') -%>

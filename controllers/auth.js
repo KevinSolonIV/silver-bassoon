@@ -29,15 +29,19 @@ exports.postLogin = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       return next(err);
+      console.log(err);
     }
     if (!user) {
+      console.log('error: user not found')
       req.flash("errors", info);
       return res.redirect("/login");
     }
     req.logIn(user, (err) => {
       if (err) {
+        console.log(err)
         return next(err);
       }
+      console.log("success! You are logged in.")
       req.flash("success", { msg: "Success! You are logged in." });
       res.redirect(req.session.returnTo || "/profile");
     });

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pictureController = require("../controllers/pictures");
-const { ensureAuth, ensureGuest } = require("../middleware/auth");
+const {ensureAuth} = require("../middleware/auth");
 
 // Comment Routes
 router.post("/addPicture/:id", ensureAuth, pictureController.addPicture);
