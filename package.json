@@ -1,7 +1,7 @@
 {
-  "name": "binary-upload-boom",
-  "version": "1.0.0",
-  "description": "100Devs Social Network",
+  "name": "find-a-museum",
+  "version": "0.3.2",
+  "description": "Community driven destination ratings",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",

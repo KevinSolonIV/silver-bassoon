@@ -27,13 +27,19 @@
       </div>
     </div>
   </div>
+  <!-- comments and pictures section -->
   <div class="post-replies">
     <div class="btn-group grid grid-cols-2">
-      <button class="btn btn-active">Comments</button>
-      <button class="btn">Pictures</button>
+      <button class="set-active-comments btn btn-active" onclick="() => {
+        document.querySelector('.post-reply-content').classList.add('swap-active')
+        }">Comments</button>
+      <button class="set-active-pictures btn" onclick="() => {
+        document.querySelector('.post-reply-content').classList.remove('swap-active')
+        }">Pictures</button>
     </div>
-    <div>
-      <div class="post-reply-comments">
+    <div class="post-reply-content swap swap-flip">
+      <!-- comments -->
+      <div class="post-reply-comments swap-on">
         <% for(let i=0; i<comments.length; i++){%>
         <div class="card w-96 bg-base-100 shadow-xl">
           <div class="card-body">
@@ -42,7 +48,7 @@
           </div>
         </div>
         <%}%>
-        <!-- add a comment form -->
+        <!-- new comment form -->
         <form action="/comments/addComment/<%= post.id %>" method="POST">
           <div class="mb-3">
               <label for="title" class="form-label">Title</label>
@@ -53,29 +59,27 @@
           <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
         </form>
       </div>
-      <div class="post-reply-pictures h-96 carousel carousel-vertical rounded-box">
+      <!-- pictures -->
+      <div class="post-reply-pictures h-96 carousel carousel-vertical rounded-box swap-off">
         <% for(let i=0; i<pictures.length; i++){%>
         <div class="carousel-item h-full">
           <img src="<%= pictures[i].image %>" />
         </div>
         <%}%>
+        
+        <!-- new picture form -->
+        <form action="/pictures/addPicture/<%= post.id %>" method="POST">
+          <div class="mb-3">
+              <label for="caption" class="form-label">Caption</label>
+              <input type="text" class="form-control" id="caption" name="caption">
+              <label for="imgUpload" class="form-label">Image</label>
+              <input type="file" class="form-control" id="imageUpload" name="file">
+          </div>
+          <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
+        </form>
       </div>
     </div>
   </div>
-  
-    <div class="col-3 mt-5">
-      <p><%= post.caption %></p>
-    </div>
-    <div class="col-6 mt-5">
-      <a class="btn btn-primary" href="/profile">Return to Profile</a>
-      <a class="btn btn-primary" href="/feed">Return to Feed</a>
-    </div>
-    <!-- list comments -->
-    <% for(let i=0; i<comments.length; i++){%>
-      <div>
-        <p><%= comment[i].comment %></p>
-      </div>
-    <%}%>
 </div>
 
 <%- include('partials/footer') -%>

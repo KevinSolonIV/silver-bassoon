@@ -1,9 +1,14 @@
+const passport = require("passport");
+
 module.exports = {
   ensureAuth: function (req, res, next) {
-    if (req.isAuthenticated()) {
+    console.log("........req:\n", req)
+    console.log("........session:\n", req.session)
+    console.log("........passport:\n", req.session.passport)
+    console.log("........user:\n", req.session.passport.user)
+    if (req.session.passport.user !== undefined) {
       return next();
     } else {
-      console.log("Auth: " + isAuthenticated())
       console.log("Failed to verify auth: redirecting to home")
       res.redirect("/");
     }

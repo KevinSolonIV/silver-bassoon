@@ -1,3 +1,4 @@
+const cloudinary = require("../middleware/cloudinary");
 const Picture = require("../models/Picture");
 
 module.exports = {
@@ -12,6 +13,7 @@ module.exports = {
         caption: req.body.caption,
         likes: 0,
         user: req.user.id,
+        username: req.user.userName,
         post: req.params.id,
       });
       console.log("Picture has been added!");

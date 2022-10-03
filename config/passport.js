@@ -6,11 +6,13 @@ const User = require("../models/User");
 module.exports = function (passport) {
   passport.use(
     new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
-      User.findOne({ email: email.toLowerCase() }, (err, user) => {
+      User.find({ email: email.toLowerCase() }, (err, user) => {
         if (err) {
+          console.log('error while finding user during auth')
           return done(err);
         }
         if (!user) {
+          console.log('user not found during auth')
           return done(null, false, { msg: `Email ${email} not found.` });
         }
         if (!user.password) {
@@ -21,9 +23,11 @@ module.exports = function (passport) {
         }
         user.comparePassword(password, (err, isMatch) => {
           if (err) {
+            console.log('error while validating password')
             return done(err);
           }
           if (isMatch) {
+            console.log('password matches; authenticating')
             return done(null, user);
           }
           return done(null, false, { msg: "Invalid email or password." });

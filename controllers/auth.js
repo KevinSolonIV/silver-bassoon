@@ -106,6 +106,7 @@ exports.postSignup = (req, res, next) => {
         });
         return res.redirect("../signup");
       }
+      //console.log(user);
       user.save((err) => {
         if (err) {
           return next(err);

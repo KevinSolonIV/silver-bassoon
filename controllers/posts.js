@@ -26,7 +26,32 @@ module.exports = {
       const comments = await Comments.find({post: req.params.id});
       const pictures = await Pictures.find({post: req.params.id});
       
-      res.render("post.ejs", { post: post, user: req.user, comments: comments, pictures: pictures });
+      res.render("post.ejs", { post, user: req.user, comments, pictures });
+      
+      // viewCommentsBtn.addEventListener('click', () => {
+      //   const commentsSection = Document.querySelector('.post-reply-comments');
+      //   const picturesSection = Document.querySelector('.post-reply-pictures');
+      //   const viewCommentsBtn = Document.querySelector('.set-comments-active');
+      //   const viewPicturesBtn = Document.querySelector('.set-pictures-active');
+      //   viewCommentsBtn.classList.toggle('active', true);
+      //   commentsSection.classList.toggle('closed', false);
+      //   commentsSection.classList.toggle('opened', true);
+      //   viewPicturesBtn.classList.toggle('active', false);
+      //   picturesSection.classList.toggle('opened', false);
+      //   picturesSection.classList.toggle('closed', true);
+      // });
+      // viewPicturesBtn.addEventListener('click', () => {
+      //   const commentsSection = Document.querySelector('.post-reply-comments');
+      //   const picturesSection = Document.querySelector('.post-reply-pictures');
+      //   const viewCommentsBtn = Document.querySelector('.set-comments-active');
+      //   const viewPicturesBtn = Document.querySelector('.set-pictures-active');
+      //   viewPicturesBtn.classList.toggle('active', true);
+      //   picturesSection.classList.toggle('closed', false);
+      //   picturesSection.classList.toggle('opened', true);
+      //   viewCommentsBtn.classList.toggle('active', false);
+      //   commentsSection.classList.toggle('opened', false);
+      //   commentsSection.classList.toggle('closed', true);
+      // });
     } catch (err) {
       console.log(err);
     }
@@ -38,6 +63,7 @@ module.exports = {
 
       await Post.create({
         title: req.body.title,
+        address: req.body.address,
         image: result.secure_url,
         cloudinaryId: result.public_id,
         caption: req.body.caption,

@@ -21,6 +21,10 @@ const PictureSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  username: {
+    type: String,
+    required: true,
+  },
   post: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Post",
