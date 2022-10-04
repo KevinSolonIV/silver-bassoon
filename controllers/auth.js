@@ -27,6 +27,9 @@ exports.postLogin = (req, res, next) => {
   });
 
   passport.authenticate("local", (err, user, info) => {
+    console.log("........req:\n", req)
+    console.log("........session:\n", req.session)
+    console.log("........passport:\n", req.session.passport)
     if (err) {
       return next(err);
       console.log(err);

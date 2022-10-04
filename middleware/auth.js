@@ -5,7 +5,6 @@ module.exports = {
     console.log("........req:\n", req)
     console.log("........session:\n", req.session)
     console.log("........passport:\n", req.session.passport)
-    console.log("........user:\n", req.session.passport.user)
     if (req.session.passport.user !== undefined) {
       return next();
     } else {
